@@ -9,8 +9,20 @@ interface AppProps {
 }
 
 class _App extends React.Component<AppProps> {
+  componentDidMount() {
+    this.props.fetchServices();
+  }
+
+  renderList(): JSX.Element[] | null {
+    if (!this.props.services) {
+      return null;
+    }
+    return this.props.services.map((service: Service) => {
+      return <div key={service.id}>{service.name}</div>;
+    });
+  }
   render() {
-    return <div>Hi there!</div>;
+    return <div>{this.renderList()}</div>;
   }
 }
 
