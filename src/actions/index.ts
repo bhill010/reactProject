@@ -1,7 +1,8 @@
 import axios from 'axios';
-import { Dispatch } from 'redux';
+import { Action, Dispatch } from 'redux';
+import { ActionTypes } from './types';
 
-interface Service {
+export interface Service {
     type: string,
     id: string,
     name: string,
@@ -17,14 +18,19 @@ interface Service {
     }
 }
 
+export interface FetchServicesAction {
+    type: ActionTypes.fetchServices,
+    payload: Service[]
+}
+
 const url = 'https://api.tfl.gov.uk/Line/Mode/tube,overground,dlr/Status?detail=true';
 
 export const fetchServices = () => {
     return async (dispatch: Dispatch) => {
         const response = await axios.get<Service[]>(url);
 
-        dispatch({
-            type: 'FETCH_SERVICES',
+        dispatch<FetchServicesAction>({
+            type: ActionTypes.fetchServices,
             payload: response.data
         });
     };
