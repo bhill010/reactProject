@@ -10,9 +10,9 @@ export interface Service {
     disruptions: string[],
     created: string,
     modified: string,
-    lineStatuses: object[],
+    lineStatuses: [{ type: string, id: number, lineId: string, statusSeverity: number, statusSeverityDescription: string, reason: string, created: string, validityPeriods: object[] }],
     routeSections: object[],
-    serviceTypes: object[],
+    serviceTypes: [{ type: string, name: string, uri: string }],
     crowding: {
         type: string
     }
