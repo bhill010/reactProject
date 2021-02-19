@@ -15,7 +15,20 @@ export interface Service {
     serviceTypes: [{ type: string, name: string, uri: string }],
     crowding: {
         type: string
-    }
+    },
+}
+
+export interface BikePoint {
+    type: string,
+    id: string,
+    url: string,
+    commonName: string,
+    placeType: string,
+    addtionalProperties: string[],
+    children: string[],
+    childrenUrls: string[],
+    lat: number,
+    lon: number,
 }
 
 export interface FetchServicesAction {
@@ -23,9 +36,9 @@ export interface FetchServicesAction {
     payload: Service[]
 }
 
-const url = 'https://api.tfl.gov.uk/Line/Mode/tube,overground,dlr/Status?detail=true';
-
 export const fetchServices = () => {
+    const url = 'https://api.tfl.gov.uk/Line/Mode/tube,overground,dlr/Status?detail=true';
+
     return async (dispatch: Dispatch) => {
         const response = await axios.get<Service[]>(url);
 
@@ -46,6 +59,24 @@ export const fetchSelectedService = (service: Service) => {
         dispatch<FetchSelectedServiceAction>({
             type: ActionTypes.fetchSelectedService,
             payload: service
+        });
+    };
+};
+
+export interface FetchBikePointsAction {
+    type: ActionTypes.fetchBikePoints,
+    payload: BikePoint[]
+}
+
+export const fetchBikePoints = (searchTerm: string) => {
+    const url = `https://api.tfl.gov.uk/BikePoint/Search?query=${searchTerm}`;
+
+    return async (dispatch: Dispatch) => {
+        const response = await axios.get<BikePoint[]>(url);
+
+        dispatch<FetchBikePointsAction>({
+            type: ActionTypes.fetchBikePoints,
+            payload: response.data
         });
     };
 };

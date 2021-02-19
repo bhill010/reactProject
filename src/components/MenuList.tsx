@@ -3,6 +3,7 @@ import { connect } from "react-redux";
 import { Service, fetchServices } from "../actions";
 import { StoreState } from "../reducers";
 import { MenuItem } from "./MenuItem";
+import { CycleHire } from "./CycleHire";
 
 interface MenuListProps {
   services: Service[];
@@ -13,7 +14,12 @@ export const MenuList: React.FC<MenuListProps> = ({
   services,
   onServiceSelect,
 }) => {
-  return <div>{renderList(services, onServiceSelect)}</div>;
+  return (
+    <div>
+      {renderList(services, onServiceSelect)}
+      {<CycleHire onServiceSelect={onServiceSelect} services={services} />}
+    </div>
+  );
 };
 
 const renderList = (

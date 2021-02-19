@@ -1,6 +1,12 @@
 import React from "react";
 import { connect } from "react-redux";
-import { Service, fetchServices, fetchSelectedService } from "../actions";
+import {
+  Service,
+  BikePoint,
+  fetchServices,
+  fetchSelectedService,
+  fetchBikePoints,
+} from "../actions";
 import { StoreState } from "../reducers";
 import { MenuList } from "./MenuList";
 import { Main } from "./Main";
@@ -8,6 +14,7 @@ import { Main } from "./Main";
 interface AppProps {
   services: Service[];
   selectedService: Service;
+  bikePoints: BikePoint[];
   fetchServices(): any;
   fetchSelectedService(service: Service): any;
 }
@@ -46,11 +53,20 @@ class _App extends React.Component<AppProps> {
 
 const mapStateToProps = (
   state: StoreState
-): { services: Service[]; selectedService: Service } => {
-  return { services: state.services, selectedService: state.selectedService };
+): {
+  services: Service[];
+  selectedService: Service;
+  bikePoints: BikePoint[];
+} => {
+  return {
+    services: state.services,
+    selectedService: state.selectedService,
+    bikePoints: state.bikePoints,
+  };
 };
 
 export const App = connect(mapStateToProps, {
   fetchServices,
   fetchSelectedService,
+  fetchBikePoints,
 })(_App);

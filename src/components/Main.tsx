@@ -39,7 +39,7 @@ const serviceStatusHeader = (selectedService: Service): string => {
 const serviceStatusSubHeader = (selectedService: Service): JSX.Element[] => {
   return selectedService.lineStatuses
     .filter((selectedService) => selectedService.statusSeverity !== 10)
-    .map((selectedService) => {
-      return <li>{selectedService.reason}</li>;
+    .map((selectedService, idx) => {
+      return <li key={idx}>{selectedService.reason}</li>;
     });
 };
