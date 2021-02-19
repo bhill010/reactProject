@@ -13,12 +13,28 @@ class _App extends React.Component<AppProps> {
     this.props.fetchServices();
   }
 
+  orderList(services: Service[]): Service[] {
+    if (!services) {
+      return [];
+    }
+
+    return services
+      .sort((a: Service, b: Service) => (a.name < b.name ? 1 : -1))
+      .sort((a: Service, b: Service) => (a.modeName > b.modeName ? 1 : -1));
+  }
+
   renderList(): JSX.Element[] | null {
     if (!this.props.services) {
       return null;
     }
-    return this.props.services.map((service: Service) => {
-      return <div key={service.id}>{service.name}</div>;
+    const sortedServices = this.orderList(this.props.services);
+    return sortedServices.map((service: Service) => {
+      return (
+        <div key={service.id}>
+          {service.name}
+          <span>| {service.modeName}</span>
+        </div>
+      );
     });
   }
   render() {
