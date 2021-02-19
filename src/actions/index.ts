@@ -35,3 +35,17 @@ export const fetchServices = () => {
         });
     };
 };
+
+export interface FetchSelectedServiceAction {
+    type: ActionTypes.fetchSelectedService,
+    payload: Service
+}
+
+export const fetchSelectedService = (service: Service) => {
+    return async (dispatch: Dispatch) => {
+        dispatch<FetchSelectedServiceAction>({
+            type: ActionTypes.fetchSelectedService,
+            payload: service
+        });
+    };
+};
