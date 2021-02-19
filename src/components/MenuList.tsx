@@ -10,6 +10,7 @@ interface MenuListProps {
   onServiceSelect: any;
   onBikeSearch: any;
   onBikeSearchTerm: any;
+  onBikeSwitch: any;
 }
 
 export const MenuList: React.FC<MenuListProps> = ({
@@ -17,14 +18,16 @@ export const MenuList: React.FC<MenuListProps> = ({
   onServiceSelect,
   onBikeSearch,
   onBikeSearchTerm,
+  onBikeSwitch,
 }) => {
   return (
     <div>
-      {renderList(services, onServiceSelect)}
+      {renderList(services, onServiceSelect, onBikeSwitch)}
       <div className="ui container">
         <CycleHire
           onBikeSearch={onBikeSearch}
           onBikeSearchTerm={onBikeSearchTerm}
+          onBikeSwitch={onBikeSwitch}
         />
       </div>
     </div>
@@ -33,7 +36,8 @@ export const MenuList: React.FC<MenuListProps> = ({
 
 const renderList = (
   services: Service[],
-  onServiceSelect: any
+  onServiceSelect: any,
+  onBikeSwitch: any
 ): JSX.Element[] => {
   return services.map((service: Service) => {
     return (
@@ -41,6 +45,7 @@ const renderList = (
         onServiceSelect={onServiceSelect}
         key={service.id}
         service={service}
+        onBikeSwitch={onBikeSwitch}
       />
     );
   });

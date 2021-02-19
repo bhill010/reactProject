@@ -7,6 +7,7 @@ import { MenuItem } from "./MenuItem";
 interface CycleHireProps {
   onBikeSearch: any;
   onBikeSearchTerm: any;
+  onBikeSwitch: any;
 }
 
 export class CycleHire extends React.Component<CycleHireProps> {
@@ -21,6 +22,7 @@ export class CycleHire extends React.Component<CycleHireProps> {
 
     this.props.onBikeSearch(this.state.searchTerm);
     this.props.onBikeSearchTerm(this.state.searchTerm);
+    this.props.onBikeSwitch(true);
     this.setState({ searchTerm: "" });
   };
 

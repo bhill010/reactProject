@@ -94,3 +94,17 @@ export const fetchSearchTerm = (searchTerm: string) => {
         });
     };
 };
+
+export interface UpdateBikeSwitchAction {
+    type: ActionTypes.updateBikeSwitch,
+    payload: boolean
+}
+
+export const updateBikeSwitch = (update: boolean) => {
+    return async (dispatch: Dispatch) => {
+        dispatch<UpdateBikeSwitchAction>({
+            type: ActionTypes.updateBikeSwitch,
+            payload: update
+        });
+    };
+};

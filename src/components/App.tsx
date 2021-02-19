@@ -7,6 +7,7 @@ import {
   fetchSelectedService,
   fetchBikePoints,
   fetchSearchTerm,
+  updateBikeSwitch,
 } from "../actions";
 import { StoreState } from "../reducers";
 import { MenuList } from "./MenuList";
@@ -17,10 +18,12 @@ interface AppProps {
   selectedService: Service;
   bikePoints: BikePoint[];
   searchTerm: string;
+  bikeSwitch: boolean;
   fetchServices(): any;
   fetchSelectedService(service: Service): any;
   fetchBikePoints(searchTerm: string): any;
   fetchSearchTerm(searchTerm: string): any;
+  updateBikeSwitch(update: boolean): any;
 }
 
 class _App extends React.Component<AppProps> {
@@ -50,6 +53,10 @@ class _App extends React.Component<AppProps> {
     this.props.fetchSearchTerm(searchTerm);
   };
 
+  onBikeSwitch = (update: boolean): void => {
+    this.props.updateBikeSwitch(update);
+  };
+
   render() {
     return (
       <div>
@@ -58,11 +65,13 @@ class _App extends React.Component<AppProps> {
           services={this.orderServiceList(this.props.services)}
           onBikeSearch={this.onBikeSearch}
           onBikeSearchTerm={this.onBikeSearchTerm}
+          onBikeSwitch={this.onBikeSwitch}
         />
         <Main
           selectedService={this.props.selectedService}
           bikePoints={this.props.bikePoints}
           searchTerm={this.props.searchTerm}
+          bikeSwitch={this.props.bikeSwitch}
         />
       </div>
     );
@@ -76,12 +85,14 @@ const mapStateToProps = (
   selectedService: Service;
   bikePoints: BikePoint[];
   searchTerm: string;
+  bikeSwitch: boolean;
 } => {
   return {
     services: state.services,
     selectedService: state.selectedService,
     bikePoints: state.bikePoints,
     searchTerm: state.searchTerm,
+    bikeSwitch: state.bikeSwitch,
   };
 };
 
@@ -90,4 +101,5 @@ export const App = connect(mapStateToProps, {
   fetchSelectedService,
   fetchBikePoints,
   fetchSearchTerm,
+  updateBikeSwitch,
 })(_App);

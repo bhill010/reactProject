@@ -7,28 +7,42 @@ interface MainProps {
   selectedService: Service;
   bikePoints: BikePoint[];
   searchTerm: string;
+  bikeSwitch: boolean;
 }
 
 export const Main: React.FC<MainProps> = ({
   selectedService,
   bikePoints,
   searchTerm,
+  bikeSwitch,
 }) => {
   return (
-    <div>
-      <div>==========================</div>
-      <div>==========================</div>
-      <div>{serviceStatusHeader(selectedService)}</div>
-      <div>{serviceStatusSubHeader(selectedService)}</div>
-      <div>{selectedService.name}</div>
-      <div>==========================</div>
-      <div>==========================</div>
-      <div>{bikePointsList(bikePoints, searchTerm)}</div>
-    </div>
+    <div>{display(bikeSwitch, bikePoints, searchTerm, selectedService)}</div>
   );
 };
 
+const display = (
+  bikeSwitch: boolean,
+  bikePoints: BikePoint[],
+  searchTerm: string,
+  selectedService: Service
+): JSX.Element => {
+  if (bikeSwitch === true) {
+    return <div>{bikePointsList(bikePoints, searchTerm)}</div>;
+  } else {
+    return (
+      <div>
+        <div>{serviceStatusHeader(selectedService)}</div>
+        <div>{serviceStatusSubHeader(selectedService)}</div>
+      </div>
+    );
+  }
+};
+
 const serviceStatusHeader = (selectedService: Service): string => {
+  if (selectedService.id === "") {
+    return "";
+  }
   let status = "No service disruptions";
 
   if (!selectedService.lineStatuses.length) {
@@ -36,6 +50,7 @@ const serviceStatusHeader = (selectedService: Service): string => {
   }
 
   for (let serviceType of selectedService.lineStatuses) {
+    console.log(serviceType, "serviceType");
     if (serviceType.statusSeverity !== 10) {
       status = "Service currently suffering disruptions";
       return status;
@@ -45,7 +60,12 @@ const serviceStatusHeader = (selectedService: Service): string => {
   return status;
 };
 
-const serviceStatusSubHeader = (selectedService: Service): JSX.Element[] => {
+const serviceStatusSubHeader = (
+  selectedService: Service
+): JSX.Element[] | JSX.Element => {
+  if (selectedService.id === "") {
+    return <div></div>;
+  }
   return selectedService.lineStatuses
     .filter((selectedService) => selectedService.statusSeverity !== 10)
     .map((selectedService, idx) => {

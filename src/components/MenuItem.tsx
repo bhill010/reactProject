@@ -4,14 +4,21 @@ import { Service } from "../actions";
 interface MenuItemProps {
   service: Service;
   onServiceSelect: any;
+  onBikeSwitch: any;
 }
 
 export const MenuItem: React.FC<MenuItemProps> = ({
   service,
   onServiceSelect,
+  onBikeSwitch,
 }) => {
   return (
-    <div onClick={() => onServiceSelect(service)}>
+    <div
+      onClick={() => {
+        onServiceSelect(service);
+        onBikeSwitch(false);
+      }}
+    >
       {service.name}
       <span>{isNightService(service)}</span>
       <span>{isServiceDisrupted(service)}</span>

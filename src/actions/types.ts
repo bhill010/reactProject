@@ -3,4 +3,5 @@ export enum ActionTypes {
     fetchSelectedService,
     fetchBikePoints,
     fetchSearchTerm,
+    updateBikeSwitch,
 }
