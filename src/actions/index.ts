@@ -1,6 +1,7 @@
 import axios from 'axios';
 import { Action, Dispatch } from 'redux';
 import { ActionTypes } from './types';
+import localForage from 'localforage';
 
 export interface Service {
     type: string,
@@ -68,16 +69,29 @@ export interface FetchBikePointsAction {
     payload: BikePoint[]
 }
 
+const searchCache = localForage.createInstance({
+    name: 'searchCache'
+});
+
 export const fetchBikePoints = (searchTerm: string) => {
     const url = `https://api.tfl.gov.uk/BikePoint/Search?query=${searchTerm}`;
 
     return async (dispatch: Dispatch) => {
-        const response = await axios.get<BikePoint[]>(url);
+        const cachedResult = await searchCache.getItem<BikePoint[]>(url);
 
-        dispatch<FetchBikePointsAction>({
-            type: ActionTypes.fetchBikePoints,
-            payload: response.data
-        });
+        if(cachedResult) {
+            dispatch<FetchBikePointsAction>({
+                type: ActionTypes.fetchBikePoints,
+                payload: cachedResult
+            });
+        } else {
+            const response = await axios.get<BikePoint[]>(url);
+            await searchCache.setItem(url, response.data)
+            dispatch<FetchBikePointsAction>({
+                type: ActionTypes.fetchBikePoints,
+                payload: response.data
+            });
+        }
     };
 };
 

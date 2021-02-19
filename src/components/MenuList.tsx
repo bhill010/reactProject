@@ -23,7 +23,7 @@ export const MenuList: React.FC<MenuListProps> = ({
   return (
     <div>
       {renderList(services, onServiceSelect, onBikeSwitch)}
-      <div className="ui container">
+      <div>
         <CycleHire
           onBikeSearch={onBikeSearch}
           onBikeSearchTerm={onBikeSearchTerm}

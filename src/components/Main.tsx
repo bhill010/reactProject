@@ -50,7 +50,6 @@ const serviceStatusHeader = (selectedService: Service): string => {
   }
 
   for (let serviceType of selectedService.lineStatuses) {
-    console.log(serviceType, "serviceType");
     if (serviceType.statusSeverity !== 10) {
       status = "Service currently suffering disruptions";
       return status;
