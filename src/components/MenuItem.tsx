@@ -1,11 +1,11 @@
 import React from "react";
 import { Service } from "../actions";
 
-interface AppProps {
+interface MenuItemProps {
   service: Service;
 }
 
-export const MenuItem: React.FC<AppProps> = ({ service }) => {
+export const MenuItem: React.FC<MenuItemProps> = ({ service }) => {
   return (
     <div>
       {service.name}
