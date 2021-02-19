@@ -80,3 +80,17 @@ export const fetchBikePoints = (searchTerm: string) => {
         });
     };
 };
+
+export interface FetchSearchTermAction {
+    type: ActionTypes.fetchSearchTerm,
+    payload: string
+}
+
+export const fetchSearchTerm = (searchTerm: string) => {
+    return async (dispatch: Dispatch) => {
+        dispatch<FetchSearchTermAction>({
+            type: ActionTypes.fetchSearchTerm,
+            payload: searchTerm
+        });
+    };
+};

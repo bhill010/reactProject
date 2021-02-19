@@ -6,6 +6,7 @@ import {
   fetchServices,
   fetchSelectedService,
   fetchBikePoints,
+  fetchSearchTerm,
 } from "../actions";
 import { StoreState } from "../reducers";
 import { MenuList } from "./MenuList";
@@ -15,9 +16,11 @@ interface AppProps {
   services: Service[];
   selectedService: Service;
   bikePoints: BikePoint[];
+  searchTerm: string;
   fetchServices(): any;
   fetchSelectedService(service: Service): any;
   fetchBikePoints(searchTerm: string): any;
+  fetchSearchTerm(searchTerm: string): any;
 }
 
 class _App extends React.Component<AppProps> {
@@ -25,7 +28,7 @@ class _App extends React.Component<AppProps> {
     this.props.fetchServices();
   }
 
-  orderServiceList(services: Service[]): Service[] {
+  orderServiceList = (services: Service[]): Service[] => {
     if (!services) {
       return [];
     }
@@ -33,15 +36,18 @@ class _App extends React.Component<AppProps> {
     return services
       .sort((a: Service, b: Service) => (a.name < b.name ? 1 : -1))
       .sort((a: Service, b: Service) => (a.modeName > b.modeName ? 1 : -1));
-  }
+  };
 
   onServiceSelect = (selectedService: Service): void => {
     this.props.fetchSelectedService(selectedService);
   };
 
   onBikeSearch = (searchTerm: string): void => {
-    console.log(searchTerm, "searchTerm");
-    //this.props.fetchBikePoints(searchTerm);
+    this.props.fetchBikePoints(searchTerm);
+  };
+
+  onBikeSearchTerm = (searchTerm: string): void => {
+    this.props.fetchSearchTerm(searchTerm);
   };
 
   render() {
@@ -51,8 +57,13 @@ class _App extends React.Component<AppProps> {
           onServiceSelect={this.onServiceSelect}
           services={this.orderServiceList(this.props.services)}
           onBikeSearch={this.onBikeSearch}
+          onBikeSearchTerm={this.onBikeSearchTerm}
         />
-        <Main selectedService={this.props.selectedService} />
+        <Main
+          selectedService={this.props.selectedService}
+          bikePoints={this.props.bikePoints}
+          searchTerm={this.props.searchTerm}
+        />
       </div>
     );
   }
@@ -64,11 +75,13 @@ const mapStateToProps = (
   services: Service[];
   selectedService: Service;
   bikePoints: BikePoint[];
+  searchTerm: string;
 } => {
   return {
     services: state.services,
     selectedService: state.selectedService,
     bikePoints: state.bikePoints,
+    searchTerm: state.searchTerm,
   };
 };
 
@@ -76,4 +89,5 @@ export const App = connect(mapStateToProps, {
   fetchServices,
   fetchSelectedService,
   fetchBikePoints,
+  fetchSearchTerm,
 })(_App);

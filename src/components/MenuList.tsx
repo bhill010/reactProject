@@ -9,17 +9,24 @@ interface MenuListProps {
   services: Service[];
   onServiceSelect: any;
   onBikeSearch: any;
+  onBikeSearchTerm: any;
 }
 
 export const MenuList: React.FC<MenuListProps> = ({
   services,
   onServiceSelect,
   onBikeSearch,
+  onBikeSearchTerm,
 }) => {
   return (
     <div>
       {renderList(services, onServiceSelect)}
-      {<CycleHire onBikeSearch={onBikeSearch} />}
+      <div className="ui container">
+        <CycleHire
+          onBikeSearch={onBikeSearch}
+          onBikeSearchTerm={onBikeSearchTerm}
+        />
+      </div>
     </div>
   );
 };
