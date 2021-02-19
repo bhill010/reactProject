@@ -3,24 +3,15 @@ import { connect } from "react-redux";
 import { Service, fetchServices } from "../actions";
 import { StoreState } from "../reducers";
 
-interface AppProps {
-  services: Service[];
-  fetchServices(): any;
+interface MainProps {
+  selectedService: Service;
 }
 
-class _Main extends React.Component<AppProps> {
-  render() {
-    return (
-      <div>
-        <div>===============</div>
-        <div>Main Content</div>
-      </div>
-    );
-  }
-}
-
-const mapStateToProps = (state: StoreState): { services: Service[] } => {
-  return { services: state.services };
+export const Main: React.FC<MainProps> = ({ selectedService }) => {
+  return (
+    <div>
+      <div>===============</div>
+      <div>{selectedService.name}</div>
+    </div>
+  );
 };
-
-export const Main = connect(mapStateToProps, { fetchServices })(_Main);

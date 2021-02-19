@@ -6,14 +6,27 @@ import { MenuItem } from "./MenuItem";
 
 interface MenuListProps {
   services: Service[];
+  onServiceSelect: any;
 }
 
-export const MenuList: React.FC<MenuListProps> = ({ services }) => {
-  return <div>{renderList(services)}</div>;
+export const MenuList: React.FC<MenuListProps> = ({
+  services,
+  onServiceSelect,
+}) => {
+  return <div>{renderList(services, onServiceSelect)}</div>;
 };
 
-const renderList = (services: Service[]): JSX.Element[] => {
+const renderList = (
+  services: Service[],
+  onServiceSelect: any
+): JSX.Element[] => {
   return services.map((service: Service) => {
-    return <MenuItem key={service.id} service={service} />;
+    return (
+      <MenuItem
+        onServiceSelect={onServiceSelect}
+        key={service.id}
+        service={service}
+      />
+    );
   });
 };

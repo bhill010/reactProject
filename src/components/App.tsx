@@ -27,11 +27,18 @@ class _App extends React.Component<AppProps> {
       .sort((a: Service, b: Service) => (a.modeName > b.modeName ? 1 : -1));
   }
 
+  onServiceSelect = (selectedService: Service): void => {
+    this.props.fetchSelectedService(selectedService);
+  };
+
   render() {
     return (
       <div>
-        <MenuList services={this.orderServiceList(this.props.services)} />
-        <Main />
+        <MenuList
+          onServiceSelect={this.onServiceSelect}
+          services={this.orderServiceList(this.props.services)}
+        />
+        <Main selectedService={this.props.selectedService} />
       </div>
     );
   }
