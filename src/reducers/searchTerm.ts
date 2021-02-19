@@ -1,5 +1,4 @@
-import { fileURLToPath } from 'url';
-import { Service, FetchSearchTermAction } from '../actions';
+import { FetchSearchTermAction } from '../actions';
 import { ActionTypes } from '../actions/types';
 
 export const searchTermReducer = (state: string = '', action: FetchSearchTermAction) => {

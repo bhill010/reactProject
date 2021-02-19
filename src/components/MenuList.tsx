@@ -1,16 +1,14 @@
 import React from "react";
-import { connect } from "react-redux";
-import { Service, fetchServices } from "../actions";
-import { StoreState } from "../reducers";
+import { Service } from "../actions";
 import { MenuItem } from "./MenuItem";
 import { CycleHire } from "./CycleHire";
 
 interface MenuListProps {
   services: Service[];
-  onServiceSelect: any;
-  onBikeSearch: any;
-  onBikeSearchTerm: any;
-  onBikeSwitch: any;
+  onServiceSelect(service: Service): void;
+  onBikeSearch(searchTerm: string): void;
+  onBikeSearchTerm(searchTerm: string): void;
+  onBikeSwitch(update: boolean): void;
 }
 
 export const MenuList: React.FC<MenuListProps> = ({
@@ -21,9 +19,11 @@ export const MenuList: React.FC<MenuListProps> = ({
   onBikeSwitch,
 }) => {
   return (
-    <div>
-      {renderList(services, onServiceSelect, onBikeSwitch)}
-      <div>
+    <div className="menu-list-container">
+      <div className="ui relaxed divided list">
+        {renderList(services, onServiceSelect, onBikeSwitch)}
+      </div>
+      <div className="item">
         <CycleHire
           onBikeSearch={onBikeSearch}
           onBikeSearchTerm={onBikeSearchTerm}
@@ -36,8 +36,8 @@ export const MenuList: React.FC<MenuListProps> = ({
 
 const renderList = (
   services: Service[],
-  onServiceSelect: any,
-  onBikeSwitch: any
+  onServiceSelect: (service: Service) => void,
+  onBikeSwitch: (update: boolean) => void
 ): JSX.Element[] => {
   return services.map((service: Service) => {
     return (

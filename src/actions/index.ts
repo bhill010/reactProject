@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { Action, Dispatch } from 'redux';
+import { Dispatch } from 'redux';
 import { ActionTypes } from './types';
 import localForage from 'localforage';
 
@@ -69,6 +69,9 @@ export interface FetchBikePointsAction {
     payload: BikePoint[]
 }
 
+// Results from a search should be kept in memory, so if you search for the exact same term you previously 
+// searched for, no new api call should be made and the cached result should be displayed to the user. 
+// It’s not required to persist this cache on a page refresh.
 const searchCache = localForage.createInstance({
     name: 'searchCache'
 });

@@ -1,4 +1,3 @@
-import { fileURLToPath } from 'url';
 import { Service, FetchSelectedServiceAction } from '../actions';
 import { ActionTypes } from '../actions/types';
 

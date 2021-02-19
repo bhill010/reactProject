@@ -3,8 +3,8 @@ import { Service } from "../actions";
 
 interface MenuItemProps {
   service: Service;
-  onServiceSelect: any;
-  onBikeSwitch: any;
+  onServiceSelect(service: Service): void;
+  onBikeSwitch(update: boolean): void;
 }
 
 export const MenuItem: React.FC<MenuItemProps> = ({
@@ -18,14 +18,16 @@ export const MenuItem: React.FC<MenuItemProps> = ({
         onServiceSelect(service);
         onBikeSwitch(false);
       }}
+      className="item"
     >
-      {service.name}
+      <h4 className="bold ui h4">{service.name}</h4>
       <span>{isNightService(service)}</span>
       <span>{isServiceDisrupted(service)}</span>
     </div>
   );
 };
 
+// Next to the name you should see a visual cue if the services is currently facing disruptions.
 const isServiceDisrupted = (service: Service): string => {
   let isServiceDisrupted = "";
 
@@ -43,6 +45,8 @@ const isServiceDisrupted = (service: Service): string => {
   return isServiceDisrupted;
 };
 
+//Next to the name you should see a visual cue (an icon, or text) if the services operates in the
+//evenings.
 const isNightService = (service: Service): string => {
   let isNightService = "";
 

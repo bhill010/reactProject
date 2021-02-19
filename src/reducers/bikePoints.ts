@@ -1,4 +1,3 @@
-import { fileURLToPath } from 'url';
 import { BikePoint, FetchBikePointsAction } from '../actions';
 import { ActionTypes } from '../actions/types';
 

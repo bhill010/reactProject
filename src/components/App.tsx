@@ -12,6 +12,7 @@ import {
 import { StoreState } from "../reducers";
 import { MenuList } from "./MenuList";
 import { Main } from "./Main";
+import "../styling/App.css";
 
 interface AppProps {
   services: Service[];
@@ -19,18 +20,21 @@ interface AppProps {
   bikePoints: BikePoint[];
   searchTerm: string;
   bikeSwitch: boolean;
-  fetchServices(): any;
-  fetchSelectedService(service: Service): any;
-  fetchBikePoints(searchTerm: string): any;
-  fetchSearchTerm(searchTerm: string): any;
-  updateBikeSwitch(update: boolean): any;
+  fetchServices(): void;
+  fetchSelectedService(service: Service): void;
+  fetchBikePoints(searchTerm: string): void;
+  fetchSearchTerm(searchTerm: string): void;
+  updateBikeSwitch(update: boolean): void;
 }
 
+// Main class within app responsible for fetching data from store and passing to child components
 class _App extends React.Component<AppProps> {
   componentDidMount() {
     this.props.fetchServices();
   }
 
+  // The menu text should equal the name value of the service object returned from the api. The
+  //menu items should be ordered by modeName first, and then by name;
   orderServiceList = (services: Service[]): Service[] => {
     if (!services) {
       return [];
@@ -59,7 +63,7 @@ class _App extends React.Component<AppProps> {
 
   render() {
     return (
-      <div>
+      <div className="app-parent-container">
         <MenuList
           onServiceSelect={this.onServiceSelect}
           services={this.orderServiceList(this.props.services)}

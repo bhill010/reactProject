@@ -1,5 +1,4 @@
-import { fileURLToPath } from 'url';
-import { BikePoint, UpdateBikeSwitchAction } from '../actions';
+import { UpdateBikeSwitchAction } from '../actions';
 import { ActionTypes } from '../actions/types';
 
 export const bikeSwitchReducer = (state: boolean = false, action: UpdateBikeSwitchAction) => {

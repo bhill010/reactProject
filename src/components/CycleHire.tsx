@@ -1,15 +1,13 @@
 import React from "react";
-import { connect } from "react-redux";
-import { Service, fetchServices } from "../actions";
-import { StoreState } from "../reducers";
-import { MenuItem } from "./MenuItem";
 
 interface CycleHireProps {
-  onBikeSearch: any;
-  onBikeSearchTerm: any;
-  onBikeSwitch: any;
+  onBikeSearch(searchTerm: string): void;
+  onBikeSearchTerm(searchTerm: string): void;
+  onBikeSwitch(update: boolean): void;
 }
 
+// A search box where the user can type in any text and have returned bike points that match that
+// text search:
 export class CycleHire extends React.Component<CycleHireProps> {
   state = { searchTerm: "" };
 
@@ -31,7 +29,7 @@ export class CycleHire extends React.Component<CycleHireProps> {
       <div className="ui segment">
         <form onSubmit={this.onFormSubmit} className="ui form">
           <div className="field">
-            <label>Bike Point Search</label>
+            <label>Cycle Hire</label>
             <input
               type="text"
               value={this.state.searchTerm}

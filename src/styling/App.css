@@ -1,0 +1,29 @@
+.app-parent-container {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  margin: 40px;
+}
+
+#root {
+  height: 100%;
+}
+
+#root > .app-parent-container {
+  height: 100%;
+}
+
+.main-container {
+  width: 60%;
+  padding: 16px;
+}
+
+.menu-list-container {
+  width: 40%;
+  padding: 16px;
+  cursor: pointer;
+}
+
+.bold {
+  font-weight: bold;
+}
