@@ -5,13 +5,23 @@ import { StoreState } from "../reducers";
 import { MenuItem } from "./MenuItem";
 
 interface CycleHireProps {
-  services: Service[];
-  onServiceSelect: any;
+  onBikeSearch: any;
 }
 
-export const CycleHire: React.FC<CycleHireProps> = ({
-  services,
-  onServiceSelect,
-}) => {
-  return <div>Cycle Hire</div>;
-};
+export class CycleHire extends React.Component<CycleHireProps> {
+  state = { searchTerm: "" };
+
+  onInputChange(event: React.ChangeEvent<HTMLInputElement>) {
+    this.setState({ searchTerm: event.target.value });
+  }
+
+  onFormSubmit(event: React.ChangeEvent<HTMLInputElement>) {
+    event.preventDefault();
+
+    this.props.onBikeSearch(this.state.searchTerm);
+  }
+
+  render() {
+    return <div>Cycle Hire</div>;
+  }
+}

@@ -17,6 +17,7 @@ interface AppProps {
   bikePoints: BikePoint[];
   fetchServices(): any;
   fetchSelectedService(service: Service): any;
+  fetchBikePoints(searchTerm: string): any;
 }
 
 class _App extends React.Component<AppProps> {
@@ -38,12 +39,18 @@ class _App extends React.Component<AppProps> {
     this.props.fetchSelectedService(selectedService);
   };
 
+  onBikeSearch = (searchTerm: string): void => {
+    console.log(searchTerm, "searchTerm");
+    //this.props.fetchBikePoints(searchTerm);
+  };
+
   render() {
     return (
       <div>
         <MenuList
           onServiceSelect={this.onServiceSelect}
           services={this.orderServiceList(this.props.services)}
+          onBikeSearch={this.onBikeSearch}
         />
         <Main selectedService={this.props.selectedService} />
       </div>

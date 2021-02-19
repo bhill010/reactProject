@@ -8,16 +8,18 @@ import { CycleHire } from "./CycleHire";
 interface MenuListProps {
   services: Service[];
   onServiceSelect: any;
+  onBikeSearch: any;
 }
 
 export const MenuList: React.FC<MenuListProps> = ({
   services,
   onServiceSelect,
+  onBikeSearch,
 }) => {
   return (
     <div>
       {renderList(services, onServiceSelect)}
-      {<CycleHire onServiceSelect={onServiceSelect} services={services} />}
+      {<CycleHire onBikeSearch={onBikeSearch} />}
     </div>
   );
 };
